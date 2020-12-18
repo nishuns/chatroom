@@ -1,0 +1,30 @@
+<script src="https://kit.fontawesome.com/6d2ea823d0.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+
+        var modal = document.getElementById("myModal");
+
+
+// var img = document.querySelector(".myImg");
+var modalImg = document.querySelector("#img01");
+var captionText = document.querySelector("#caption");
+
+document.querySelectorAll(".myImg").forEach(img=>{
+
+img.onclick = function(){
+  document.querySelector('.container2').style.transform="none";
+  modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = this.alt;
+}
+});
+
+
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+  document.querySelector('.container2').style.transform="translate(25px,25px)";
+  modal.style.display = "none";
+}
+    });
+</script>

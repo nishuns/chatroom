@@ -1,20 +1,22 @@
-
 {
   "name": "coolnodeapp",
   "version": "1.0.0",
   "description": "node app ",
   "main": "app.js",
   "scripts": {
-  "start": "node app.js"
-},
+    "start": "node app.js"
+  },
   "repository": {
-  "type": "git",
-  "url": ""
-},
+    "type": "git",
+    "url": ""
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
-  "url": ""
-},
-  "homepage": ""
+    "url": ""
+  },
+  "homepage": "/",
+  "dependencies": {
+    "mongoose": "^5.11.8"
+  }
 }
