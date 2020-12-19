@@ -1,11 +1,13 @@
-const http = require('http');
 const express=require('express');
 const port = process.env.PORT || 3000
 const app = express()
 
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.render('./pages/index')
 })
 
 app.listen(port, () => {
