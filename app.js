@@ -1,15 +1,22 @@
 const express=require('express');
 const port = process.env.PORT || 3000
-const app = express()
+const app = express();
+
+var waiting=null;
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 
 app.get('/', (req, res) => {
-  res.render('./pages/index')
+  res.render('./pages/index', {number: waiting});
 })
 
+app.post('/calc', (req,res)=>{
+  waiting=req.body.val;
+  console.log(req.body.val);
+  res.send('got data');
+})
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
