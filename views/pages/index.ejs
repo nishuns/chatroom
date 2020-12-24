@@ -7,15 +7,20 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="app">
-        <% for(let i=0; i<10; i++){%>
-            <% for(let j=0; j<i; j++){%>
-                <span><%=j+1%></span>
-        <%}%>
-        <br>
-        <%}%>
-
+    <h1>Welcome to Konoha</h1>
+    <form action="/todo" method="post">
+        <input type="text" name="task" id='task' placeholder="Enter the task">
+        <button type="submit">Add Task</button>
+    </form>
+    <hr>
+    <div>
+        <h3>My Tasks</h3>
+        <ul>
+            <% for(let task of tasks){%>
+                <li><%=task%></li>
+            <%}%>
+        </ul>
     </div>
-    <script src="script/script.js"></script>
+<script src="script/script.js"></script>
 </body>
 </html>
