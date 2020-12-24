@@ -1,6 +1,8 @@
 const express=require('express');
 const port = process.env.PORT || 3000
 const app = express();
+var http = require('http').createServer(app)
+const io = require('socket.io')(http);
 const bodyParser=require('body-parser');
 var waiting=null;
 
@@ -21,8 +23,20 @@ app.post('/todo', (req,res)=>{
   todo.push(req.body.task);
   res.redirect('/');
 })
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+
+app.get('/pop', (req,res)=>{
+  todo.pop();
+  res.send('one element deleted');
+})
+
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
+  });
+});
+
+http.listen(port, () => {
+  console.log(`listening at http://localhost:${port}`)
 })
 
 // const server = http.createServer((req, res) => {

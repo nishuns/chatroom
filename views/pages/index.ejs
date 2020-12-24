@@ -10,17 +10,17 @@
     <h1>Welcome to Konoha</h1>
     <form action="/todo" method="post">
         <input type="text" name="task" id='task' placeholder="Enter the task">
-        <button type="submit">Add Task</button>
+        <!-- <button type="submit">Add Task</button> -->
+        <button type='button' id='remove' >remove</button>
+        <button type='button' id='test' onclick="sendIt()">send</button>
     </form>
     <hr>
     <div>
         <h3>My Tasks</h3>
-        <ul>
-            <% for(let task of tasks){%>
-                <li><%=task%></li>
-            <%}%>
+        <ul id='list'>
         </ul>
     </div>
+<script src="libs/socket.io-client/dist/socket.io.js"></script>
 <script src="script/script.js"></script>
 </body>
 </html>
