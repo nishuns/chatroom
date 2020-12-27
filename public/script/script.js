@@ -1,8 +1,30 @@
 var socket=io();
+window.personName=null;
+$(document).ready(function(){
+    personName=prompt('Enter your name to start?');
+    var request=new XMLHttpRequest();
+    request.open('GET', '/todo');
+    request.onload=()=>{
+        let data=JSON.parse(request.responseText);
+        for(let content of data){
+            if(content.name==personName){
+                getMessage('incomming', content);
+            }else{
+                getMessage('outgoing', content);
+            }
+        }
+    }
+    request.send();
+});
 
 document.getElementById('remove').onclick=()=>{
     removeMessage();
 }
+
+document.getElementById('task').addEventListener("keypress", function(event) {
+    if(event.key == "Enter")
+        document.getElementById('send-message').click(); 
+});
 
 function removeMessage(){
     const request=new XMLHttpRequest();
@@ -14,23 +36,49 @@ function removeMessage(){
     request.send();
 }
 
-function getMessage(tune, message){
-    let task=document.createElement('li');
-    task.className=tune;
-    task.innerHTML=message;
-    document.getElementById('list').append(task);
+function getMessage(tune, content){
+    let message=document.createElement('li');
+    message.className=tune;
+    // Name of sender
+    var OwnerName=document.createElement('span');
+    console.log(content.name);
+    OwnerName.innerHTML=content.name;
+    OwnerName.className='badge badge-primary';
+    OwnerName.style.fontSize='.8rem';
+    message.append(OwnerName);
+    // Message
+    var text=document.createElement('p');
+    text.innerHTML=content.message;
+    text.className='text-secondary';
+    message.append(text);
+    // text appear
+    document.getElementById('list').append(message);
 }
 
 function sendIt(){
     var msg=document.getElementById('task');
-    getMessage('outgoing', msg.value);
-    console.log('Nishu: '+msg.value);
-    socket.emit('chat message', msg.value);
-    msg.value='';
+    if(msg.value.length>1){
+        var data={
+            message: msg.value,
+            name: personName,
+            id: 'Mickey123'
+        }
+        socket.emit('chat message', data);
+        msg.value='';
+    }else{
+        alert('message is empty');
+    }
     return false;
 }
 
-socket.on('chat message', function(msg){
-        getMessage('incomming', msg);
-        console.log('child: '+msg);
+socket.on('chat message', function(chats){
+    for( let message of chats.chat.reverse()){
+        console.log(message);
+        if(message.name==personName){
+            getMessage('incomming', message);
+        }else{
+            getMessage('outgoing', message);
+        }
+        break;
+    }
 });

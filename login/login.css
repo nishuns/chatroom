@@ -1,0 +1,202 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.tempbox{
+    border: 1px solid red;
+}
+
+.app-container{
+    width: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),url('./Gnome.png');
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+}
+
+.header{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.menu-icon{
+    display: none;
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    right: 40px;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.row1{
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.row2{
+    height: 75%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row2 .row2-col{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header{
+    width: 50%;
+    margin-left: auto;
+}
+
+.header-elem{
+    width: 20%;
+}
+
+#site-title{
+    font-size: 10rem;
+}
+
+.header-elem .elem{
+    border-radius: 25px;
+    color: #eeeeee;
+    /* border: none; */
+    border: 1px solid #eeeeee;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.header-elem .elem:hover{
+    background: #212121;
+}
+
+.login-box{
+    width: 10%;
+    min-width: 360px;
+    max-width: 480px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.login-form{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+}
+
+@media screen and (max-width: 768px){
+    
+    .row1{
+
+        width: 100%;
+        /* margin: 40px 0; */
+        height: 25%;
+        /* position: absolute; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        display: none;
+    }
+    
+    .header{
+        width: 90%;
+        margin: 0 auto;
+        z-index: -1;
+        flex-direction: column;
+        justify-content: center;
+        /* animation: disappear 5s 1 forwards; */
+    }
+    
+    .header-elem{
+        width: 100%;
+        /* border: 1px solid red; */
+    }
+
+    .menu-icon{
+        display: block;
+    }
+    
+    .header-elem .elem{
+        margin: 0;
+        border-radius: 0;
+        color: #eeeeee;
+        border: none;
+        /* border: 1px solid #eeeeee; */
+        background: rgba(0, 0, 0, 0.424);
+        padding: 12px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .row2{
+        height: 75%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .row2 .row2-col{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #login-box-title{
+        display: none;
+    }
+
+    .login-box{
+        width: 10%;
+        min-width: 360px;
+        max-width: 480px;
+        border-radius: 10px;
+        background: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
+    }
+
+    .row2 .col1{
+        width: 100%;
+        margin: 30px 0;
+    }
+
+    #site-title{
+        font-size: 4rem;
+    }
+
+    #site-subtitle{
+        font-size: 1rem;
+    }
+
+    .about{
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #fff; 
+        background: rgba(0, 0, 0, 0.575);
+    }
+}
