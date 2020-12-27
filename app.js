@@ -8,7 +8,7 @@ const bodyParser=require('body-parser');
 require('dotenv');
 var waiting=null;
 
-mongoose.connect("mongodb://localhost:27017/UsersDB", {
+mongoose.connect("mongodb+srv://UsersDB:mikkuo8279459923@cluster0.qcost.mongodb.net/UsersDB?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
