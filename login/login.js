@@ -16,3 +16,7 @@
         }
       });
     })
+
+  $('.signin').click(function(){
+    document.querySelector('.sign-in-button').click();
+  })

@@ -10,7 +10,7 @@
 
 .app-container{
     width: 100%;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),url('./Gnome.png');
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),url('./Gnome2.png');
     height: 100vh;
     position: fixed;
     display: flex;
@@ -104,10 +104,17 @@
     padding: 10px;
 }
 
-@media screen and (max-width: 768px){
-    
-    .row1{
+@media screen and (max-width: 1080px){
+    .header{
+        width: 100%;
+    }
+}
 
+@media screen and (max-width: 768px){
+    .app-container{
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),url('./Gnome.png');
+    }
+    .row1{
         width: 100%;
         /* margin: 40px 0; */
         height: 25%;
@@ -183,14 +190,14 @@
 
     .row2 .col1{
         width: 100%;
-        margin: 30px 0;
+        margin: 10px 0;
     }
 
-    #site-title{
+    .site-title{
         font-size: 4rem;
     }
 
-    #site-subtitle{
+    .site-subtitle{
         font-size: 1rem;
     }
 

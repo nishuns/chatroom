@@ -30,9 +30,24 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
-
+// get request for login page
 app.get('/', (req, res) => {
-  res.render('./pages/index');
+  res.render('./pages/login');
+})
+
+// get request for login page
+app.get('/login', (req,res)=>{
+  res.render('./pages/login');
+})
+
+// get request for signin page
+app.get('/signup', (req,res)=>{
+  res.render('./pages/signup');
+})
+
+// get request for chatroom
+app.get('/chatroom', (req,res)=>{
+  res.render('./pages/message');
 })
 
 app.get('/todo', (req,res)=>{
@@ -47,10 +62,7 @@ app.get('/todo', (req,res)=>{
   })
 })
 
-app.get('/pop', (req,res)=>{
-  todo.pop();
-  res.send('one element deleted');
-})
+
 
 io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {

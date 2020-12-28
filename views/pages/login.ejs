@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- login head -->
+<%- include('../partials/login/login_header') %>
+</head>
+<body>
+    <div class="app-container">
+        <!-- login menu -->
+        <%- include('../partials/login/login_menu' , {lastbutton:"sign in"})%>
+        <div class="row2">
+            <!-- login title -->
+            <%- include('../partials/login/login_title')%>
+            <div class="col2">
+                <%- include('../partials/login/login_box', {title: "Log", endnote: "Don't have account?", url: "/signup"});%>
+            </div>
+        </div>
+    </div>
+    <script src="script/login.js
+    "></script>
+    <script src="https://kit.fontawesome.com/6d2ea823d0.js"></script>
+</body>
+</html>

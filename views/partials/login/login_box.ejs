@@ -1,0 +1,14 @@
+<div class="login-box">
+    <h3 class='text-light' style="margin: 20px 0;" id="login-box-title"><%=title%> in Here</h3>
+    <a class="btn btn-outline-light" href="/users/googleauth" role="button" style="text-transform:none">
+        <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+        <%=title%>in with Google
+    </a>
+    <h4 class="text-light">or</h4>
+    <form action="" class='login-form'>
+        <input type="text" class='form-control' name='email' id='email' placeholder="Email Address" style="margin: 10px;">
+        <input type="password" class='form-control' name="password" id="password" placeholder="Password" style="margin: 10px;">
+        <button class="btn btn-primary">Log in</button>
+        <label class="text-dark" style="margin-top: 20px;"><%=endnote%><a class="sign-in-button"  href="<%=url%>">Click Here</a></label>
+    </form>
+</div>
