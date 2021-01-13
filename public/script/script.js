@@ -17,6 +17,7 @@ $(document).ready(function(){
     request.send();
 });
 
+
 document.getElementById('remove').onclick=()=>{
     removeMessage();
 }
@@ -68,6 +69,7 @@ function sendIt(){
     }else{
         alert('message is empty');
     }
+    window.scrollTo(0,document.body.scrollHeight+10);
     return false;
 }
 
@@ -79,6 +81,7 @@ socket.on('chat message', function(chats){
         }else{
             getMessage('outgoing', message);
         }
+        window.scrollTo(0,document.body.scrollHeight+10);
         break;
     }
 });
