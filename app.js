@@ -132,7 +132,7 @@ app.post('/api/tasks/:task',cors(), (req,res)=>{
   task.save(function(err,data){
     if(err) console.log(err)
     else{
-      res.send("Task Added successfully");
+      res.send({tasks: data});
     }
   })
 })
