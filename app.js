@@ -1,5 +1,6 @@
 const express=require('express');
 const mongoose=require('mongoose');
+var cors = require('cors')
 const app = express();
 var http = require('http').createServer(app)
 const io = require('socket.io')(http);
@@ -108,21 +109,21 @@ io.on('connection', (socket) => {
   });
 });
 
-app.get('/api/tasks', (req,res)=>{
+app.get('/api/tasks',cors(), (req,res)=>{
   Task.find({}, (err,tasks)=>{
     if(err) console.log(err);
     res.send({tasks: tasks});
   })
 });
 
-app.get('/api/task/:taskid', (req,res)=>{
+app.get('/api/task/:taskid',cors(), (req,res)=>{
   Task.findOne({_id: req.params.taskid}, (err, task)=>{
     if(err) console.log(err);
     res.send(task);
   })
 })
 
-app.post('/api/tasks/:task', (req,res)=>{
+app.post('/api/tasks/:task',cors(), (req,res)=>{
   let task=new Task({
     message: req.params.task,
     read: false
