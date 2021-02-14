@@ -23,14 +23,25 @@ const chatSchema= new mongoose.Schema([{
 }]);
 
 const taskSchema=new mongoose.Schema([{
-  message: String,
-  read: Boolean
+  name: String,
+  tasklist: [{
+    task: String,
+    read: Boolean
+  }]
+}]);
+
+const feedbackSchema=new mongoose.Schema([{
+  name: String,
+  email: String,
+  mobile: String,
+  description: String
 }]);
 
 mongoose.set("useCreateIndex", true);
 
 const Chat= new mongoose.model('Chat', chatSchema);
 const Task=new mongoose.model('Task', taskSchema);
+const Feeds=new mongoose.model('Feeds', feedbackSchema);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -109,33 +120,76 @@ io.on('connection', (socket) => {
   });
 });
 
-app.get('/api/tasks',cors(), (req,res)=>{
-  Task.find({}, (err,tasks)=>{
-    if(err) console.log(err);
-    res.send({tasks: tasks});
+app.get('/api/tasks/:name',cors(), (req,res)=>{
+  Task.find({name: req.params.name}, (err,tasks)=>{
+    if(err){
+      console.log(err);
+      res.send('tasks not found');
+    }else{
+      res.send({tasks: tasks});
+    } 
+    
   })
 });
 
-app.get('/api/task/:taskid',cors(), (req,res)=>{
-  Task.findOne({_id: req.params.taskid}, (err, task)=>{
-    if(err) console.log(err);
-    res.send(task);
-  })
-})
+app.post('/api/tasks/:name/:task',cors(), (req,res)=>{
+  Task.findOne({name: req.params.name}, (err, data)=>{
+    if(data){
+      Task.updateOne({name: req.params.name}, {$push:{tasklist: {message: req.params.task, read: false}}}, function(error, founddata){
+        if(error){
+          console.log("error");
+          res.send('server error, Try later');
+        }else{
+          console.log(founddata);
+          res.send(founddata);
+        }
+      })
+    }else{
+      let task=new Task({
+        name: req.params.name
+      });
 
-app.post('/api/tasks/:task',cors(), (req,res)=>{
-  let task=new Task({
-    message: req.params.task,
-    read: false
-  });
-
-  task.save(function(err,data){
-    if(err) console.log(err)
-    else{
-      res.send({tasks: data});
+      task.save(function(error, founddata){
+        if(error) console.log(error);
+        else{
+          Task.updateOne({name: req.params.name}, {$push:{tasklist: {message: req.params.task, read: false}}}, function(error, data){
+            if(error){
+              console.log("error");
+              res.send('server error, Try later');
+            }else{
+              console.log(data);
+              res.send(data);
+            }
+          })
+        }
+      })
     }
   })
 })
+
+app.post('/api/contact/:passkey', function(req,res){
+  if(req.params.passkey=="chalchutiye"){
+    let name=req.body.name;
+  let email=req.body.email;
+  let mobile=req.body.mobile;
+  let description=req.body.description;
+  let feeds=new Feeds({
+    name: name,
+    email: email,
+    mobile: mobile,
+    description: description
+  });
+
+  feeds.save(function(err, founddate){
+    if(err) throw err;
+    console.log(founddate);
+  })
+  }else{
+    res.send({
+      status: "fuck off"
+    })
+  }
+});
 
 http.listen(port, () => {
   console.log(`listening at http://localhost:${port}`)
