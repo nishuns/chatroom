@@ -167,7 +167,7 @@ app.post('/api/tasks/:name/:task',cors(), (req,res)=>{
   })
 })
 
-app.post('/api/contact/:passkey', function(req,res){
+app.post('/api/contact/:passkey',cors(), function(req,res){
   if(req.params.passkey=="chalchutiye"){
     let name=req.body.name;
   let email=req.body.email;
