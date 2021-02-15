@@ -186,6 +186,10 @@ app.post('/api/contact/:passkey',cors(), function(req,res){
   feeds.save(function(err, founddate){
     if(err) throw err;
     console.log(founddate);
+    res.send({
+      status: "success",
+      message: "Request Sent Successfully"
+    })
   })
   }else{
     res.send({
