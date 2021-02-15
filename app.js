@@ -9,6 +9,9 @@ require('dotenv');
 const port = process.env.PORT || 4000
 var waiting=null;
 
+
+app.use(cors());
+
 mongoose.connect("mongodb+srv://UsersDB:mikkuo8279459923@cluster0.qcost.mongodb.net/UsersDB?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true
