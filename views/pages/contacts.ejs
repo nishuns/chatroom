@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .reload{
+            font-size: 50px; 
+            cursor:pointer;
+            color: rgb(59, 59, 59);
+        }
+
+        .reload:active{
+            color: rgb(128, 128, 128);
+        }
+    </style>
+</head>
+<body>
+    <div style="position: fixed; top: 10px; left: 10px">
+        <p class="reload">&#8634;</p>
+    </div>
+    <h1 style="text-align: center; margin-top: 20px;">Contacts List</h1>
+    <table class="table" >
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Description</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <%if(contacts.length>0){%>
+            <tbody>
+                <%for(let each of contacts){%>
+                    <tr>
+                        <td><%=each.name%></td>
+                        <td><%=each.email%></td>
+                        <td><%=each.mobile%></td>
+                        <td><%=each.description%></td>
+                        <td>
+                            <form method="post" action="/api/delete/<%=each._id%>">
+                                <button type="submit" class="btn btn-primary" >delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <%}%>
+            </tbody>
+        <%}else{%>
+            <div class="alert alert-info" role="alert">
+                Nothing to show now...!! please add some data first!!
+            </div>
+        <%}%>
+    </table>
+    <script>
+        document.querySelector('.reload').onclick=()=>{
+            location.reload();
+        }
+    </script>
+</body>
+</html>

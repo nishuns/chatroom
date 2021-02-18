@@ -198,16 +198,22 @@ app.post('/api/contact/:passkey',cors(), function(req,res){
   }
 });
 
+app.get("/api/contacts", (req,res)=>{
+    Feeds.find({}, function(err,data){
+      res.render('./pages/contacts', {
+        contacts: data
+      })
+    })
+})
+
+app.post("/api/delete/:id", (req,res)=>{
+    Feeds.deleteOne({_id: req.params.id}, function(err){
+      if(err) console.log(err);
+      res.redirect('/api/contacts');
+    })
+})
+
 http.listen(port, () => {
   console.log(`listening at http://localhost:${port}`)
 })
 
-// const server = http.createServer((req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader('Content-Type', 'text/html');
-//   res.end('<h1>This app is created by me you mother fuckers</h1>');
-// });
-
-// server.listen(port,() => {
-//   console.log(`Server running at port `+port);
-// });
