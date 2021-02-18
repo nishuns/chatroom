@@ -40,11 +40,16 @@ const feedbackSchema=new mongoose.Schema([{
   description: String
 }]);
 
+const countSchema=new mongoose.Schema({
+  count: Number
+})
+
 mongoose.set("useCreateIndex", true);
 
 const Chat= new mongoose.model('Chat', chatSchema);
 const Task=new mongoose.model('Task', taskSchema);
 const Feeds=new mongoose.model('Feeds', feedbackSchema);
+const Count=new mongoose.model('Count', countSchema);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -131,7 +136,6 @@ app.get('/api/tasks/:name',cors(), (req,res)=>{
     }else{
       res.send({tasks: tasks});
     } 
-    
   })
 });
 
@@ -186,6 +190,12 @@ app.post('/api/contact/:passkey',cors(), function(req,res){
   feeds.save(function(err, founddate){
     if(err) throw err;
     console.log(founddate);
+    Count.findOne({_id: '602e1e8136886a9bffd783b9'}, function(error,data){
+      console.log(data.count);
+      Count.updateOne({_id: data._id}, {count: data.count+1}, (my_err)=>{
+        if(my_err) console.log(my_err);
+      })
+    })
     res.send({
       status: "success",
       message: "Request Sent Successfully"
