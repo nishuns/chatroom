@@ -1,18 +1,39 @@
-const express=require('express');
-const mongoose=require('mongoose');
-var cors = require('cors')
+// ** import all files
+const express = require("express"); // ** npm install express @desc framework used to create REST API
+const path = require("path"); // ** inbuilt dependency @desc get access to various function for paths
+const mongoose = require("mongoose"); // ** npm install mongoose @desc give access to mongodb database
+const sessions = require("express-session"); // ** npm install express-session @desc create sessions
+const multer = require("multer"); // ** npm install multer @desc used as body-parser
+const cors = require("cors"); // ** npm install cors @desc used to access cors services
+// const mongoStore = require("mongo-connect")(sessions); // ** npm install mongo-connect @desc create session in db
+require("dotenv").config(); // ** npm install dotenv @desc used to get all env varibles
 const app = express();
 var http = require('http').createServer(app)
 const io = require('socket.io')(http);
 const bodyParser=require('body-parser');
-require('dotenv');
+require('dotenv').config();
 const port = process.env.PORT || 4000
 var waiting=null;
 
-
+// ** initialise multer
+var upload = multer();
+// ** adding static folder
+app.use(express.static(path.join(__dirname, "assets")));
+// ** use cors
 app.use(cors());
+// ** adding routes
+app.use("/api", require("./routes/index"));
+// ** adding sessions
+app.use(
+   sessions({
+      name: "shadebook_admin_cookie",
+      secret: SESSIONS_SECRET,
+      resave: false,
+      saveUninitialized: false
+   })
+);
 
-mongoose.connect("mongodb+srv://UsersDB:mikkuo8279459923@cluster0.qcost.mongodb.net/UsersDB?retryWrites=true&w=majority", {
+mongoose.connect(process.env.DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -32,17 +53,6 @@ const taskSchema=new mongoose.Schema([{
     read: Boolean
   }]
 }]);
-
-const feedbackSchema=new mongoose.Schema([{
-  name: String,
-  email: String,
-  mobile: String,
-  description: String
-}]);
-
-const countSchema=new mongoose.Schema({
-  count: Number
-})
 
 mongoose.set("useCreateIndex", true);
 
