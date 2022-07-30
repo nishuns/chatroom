@@ -56,7 +56,10 @@ span{
     padding: 10px;
     color: black;
     width: 70%;
+}
 
+.incomming .text-secondary, .outgoing .text-secondary {
+    word-break: break-word;
 }
 
 .outgoing{
