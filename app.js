@@ -5,16 +5,18 @@ const app = express();
 var http = require('http').createServer(app)
 const io = require('socket.io')(http);
 const bodyParser=require('body-parser');
-require('dotenv');
+require('dotenv').config();
 const port = process.env.PORT || 4000
 var waiting=null;
 
 
 app.use(cors());
 
-mongoose.connect("mongodb+srv://UsersDB:mikkuo8279459923@cluster0.qcost.mongodb.net/UsersDB?retryWrites=true&w=majority", {
+mongoose.connect(process.env.db_uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
+}).then(() => {
+  console.log("Database is connected successfully");
 });
 
 const chatSchema= new mongoose.Schema([{
@@ -92,7 +94,8 @@ app.get('/todo', (req,res)=>{
 
 
 io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
+  socket.on('broadcast-sender', (msg) => {
+    console.log('broadcast-sender', msg);
     Chat.findOne({id: msg.id}, (err, foundData)=>{
       if(foundData){
         Chat.updateOne({id: msg.id}, {$push: {chat:{name: msg.name, message: msg.message}}}, (err)=>{
@@ -102,7 +105,7 @@ io.on('connection', (socket) => {
         Chat.findOne({id: msg.id}, (geterr, getchats)=>{
           if(err) throw geterr;
           console.log(getchats);
-          io.emit('chat message', getchats);
+          io.emit('broadcast-reciever', getchats);
         })
       }else{
         var chat= new Chat({

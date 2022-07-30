@@ -22,10 +22,11 @@ document.getElementById('remove').onclick=()=>{
     removeMessage();
 }
 
-document.getElementById('task').addEventListener("keypress", function(event) {
-    if(event.key == "Enter")
-        document.getElementById('send-message').click(); 
-});
+document.getElementById('task').onkeydown = (event) => {
+    if (event.key === 'Enter') {
+        document.getElementById('send-message').click();
+    } 
+} 
 
 function removeMessage(){
     const request=new XMLHttpRequest();
@@ -64,16 +65,16 @@ function sendIt(){
             name: personName,
             id: 'Mickey123'
         }
-        socket.emit('chat message', data);
+        socket.emit('broadcast-sender', data);
         msg.value='';
     }else{
         alert('message is empty');
     }
-    window.scrollTo(0,document.body.scrollHeight+10);
+    window.scrollTo(0,document.body.scrollHeight);
     return false;
 }
 
-socket.on('chat message', function(chats){
+socket.on('broadcast-reciever', function(chats){
     for( let message of chats.chat.reverse()){
         console.log(message);
         if(message.name==personName){
@@ -81,7 +82,7 @@ socket.on('chat message', function(chats){
         }else{
             getMessage('outgoing', message);
         }
-        window.scrollTo(0,document.body.scrollHeight+10);
+        window.scrollTo(0,document.body.scrollHeight);
         break;
     }
 });
